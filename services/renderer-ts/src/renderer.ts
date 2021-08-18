@@ -1,8 +1,14 @@
+import { parse } from "@progfay/scrapbox-parser";
+import ReactDOM from "react-dom/server";
+import { ContentRenderer } from "./parser/contentRenderer";
+
 /**
  * 受け取った文書を HTML に変換する
  */
 export async function render(src: string): Promise<string> {
-  // TODO: これはサンプル実装 (URL の自動リンク) です
-  const html = src.replace(/https?:\/\/[^\s]+/g, (url) => `<a href="${encodeURI(url)}">${url}</a>`);
+  const parsed = parse(src.replace(/\r\n/g, "\n"));
+  const apply = ContentRenderer({ page: parsed });
+  if (!apply) throw new Error("cant applied");
+  const html = ReactDOM.renderToStaticMarkup(apply);
   return html;
 }
