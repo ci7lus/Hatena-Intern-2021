@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"strings"
 	"time"
 	"unicode/utf8"
 
@@ -66,6 +67,10 @@ func (a *App) EditEntry(ctx context.Context, user *domain.User, blog *domain.Blo
 		return nil, ErrInvalidArgument
 	}
 	repo := repository.NewRepository(a.db)
+	if len(title) == 0 {
+		sliced := strings.Split(body, "\r\n")
+		title = sliced[0]
+	}
 	return entry.Edit(title, body, time.Now())(ctx, repo, a)
 }
 

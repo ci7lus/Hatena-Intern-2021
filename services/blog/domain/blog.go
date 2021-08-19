@@ -2,6 +2,7 @@ package domain
 
 import (
 	"context"
+	"strings"
 	"time"
 )
 
@@ -66,6 +67,10 @@ func (b Blog) Delete() func(ctx context.Context, r Repository) error {
 // PublishEntry は新規エントリを公開する
 func (b Blog) PublishEntry(title, body string, publishedAt time.Time) func(ctx context.Context, r Repository, br BodyRenderer) (*Entry, error) {
 	return func(ctx context.Context, r Repository, br BodyRenderer) (*Entry, error) {
+		if len(title) == 0 {
+			sliced := strings.Split(body, "\r\n")
+			title = sliced[0]
+		}
 		bodyHTML, err := br.Render(ctx, body)
 		if err != nil {
 			return nil, err
