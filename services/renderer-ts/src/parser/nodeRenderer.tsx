@@ -57,10 +57,8 @@ export const LineNodeRenderer: React.VFC<{ node: Node; _key: string | number }> 
     }
     case "hashTag":
       return (
-        <a href={`/tags/${node.href}`}>
-          <button type="button" aria-label={`${node.href} の投稿一覧`}>
-            #{node.href}
-          </button>
+        <a>
+          <button type="button">#{node.href}</button>
         </a>
       );
     case "link":
@@ -71,7 +69,7 @@ export const LineNodeRenderer: React.VFC<{ node: Node; _key: string | number }> 
           </a>
         );
       } else {
-        return <a href={`./${encodeURIComponent(node.href)}`}>{node.href}</a>;
+        return <a>{node.href}</a>;
       }
     case "icon":
       if (node.path.includes("[")) {
@@ -79,21 +77,11 @@ export const LineNodeRenderer: React.VFC<{ node: Node; _key: string | number }> 
       }
       switch (node.pathType) {
         case "relative":
-          return (
-            <img
-              src={`./${encodeURIComponent(node.path)}/icon`}
-              loading="lazy"
-              alt={`${node.path} のアイコン`}
-            />
-          );
+          return <img loading="lazy" alt={node.path} />;
         case "root":
           return (
-            <a href={`https://scrapbox.io${node.path}`} target="_blank" rel="noopener">
-              <img
-                src={`https://scrapbox.io/api/pages${node.path}/icon`}
-                loading="lazy"
-                alt={`${node.path} のアイコン`}
-              />
+            <a href="../.." target="_blank" rel="noopener">
+              <img loading="lazy" alt={node.path} />
             </a>
           );
         default:
