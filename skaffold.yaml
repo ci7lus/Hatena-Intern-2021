@@ -4,22 +4,22 @@ metadata:
   name: hatena-intern-2021
 build:
   artifacts:
-  - image: hatena-intern-2021-account
+  - image: 568128707075.dkr.ecr.ap-northeast-1.amazonaws.com/hatena-intern-2021-account
     context: services/account
 #  - image: hatena-intern-2021-account-test
 #    context: services/account
 #    docker:
 #      dockerfile: Dockerfile.test
-  - image: hatena-intern-2021-blog
+  - image: h568128707075.dkr.ecr.ap-northeast-1.amazonaws.com/hatena-intern-2021-blog
     context: services/blog
 #  - image: hatena-intern-2021-blog-test
 #    context: services/blog
 #    docker:
 #      dockerfile: Dockerfile.test
-  - image: hatena-intern-2021-renderer-ts
+  - image: 568128707075.dkr.ecr.ap-northeast-1.amazonaws.com/hatena-intern-2021-renderer-ts
     context: services/renderer-ts
   local:
-    push: false
+    push: true
     useBuildkit: true
 deploy:
   statusCheckDeadlineSeconds: 180

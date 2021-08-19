@@ -37,8 +37,8 @@ spec:
         image: busybox
         command: ["sh", "-c", "until nslookup account.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local > /dev/null; do sleep 1; done"]
       containers:
-      - image: hatena-intern-2021-blog
-        imagePullPolicy: Never
+      - image: 568128707075.dkr.ecr.ap-northeast-1.amazonaws.com/hatena-intern-2021-blog
+        #imagePullPolicy: Never
         name: blog
         env:
         - name: PORT
