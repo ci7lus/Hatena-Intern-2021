@@ -9,8 +9,7 @@
   <section>
     <form method="POST" action="/my/blogs/{{.Blog.Path}}/entries/-/publish">
       <input type="hidden" name="csrf_token" value="{{.CsrfToken}}">
-      <p><label>タイトル <input type="text" name="title"></label></p>
-      <p><label>本文 <textarea name="body"></textarea></label></p>
+      <p><label><textarea name="body"></textarea></label></p>
       <p><input type="submit" value="投稿"></p>
     </form>
   </section>

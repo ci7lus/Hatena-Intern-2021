@@ -192,7 +192,6 @@ func Test_WillPublishEntry(t *testing.T) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		// フォームが表示される
 		assert.Contains(t, rec.Body.String(), `<form method="POST" action="/my/blogs/`+blog.Path+`/entries/-/publish">`)
-		assert.Contains(t, rec.Body.String(), `<input type="text" name="title">`)
 		assert.Contains(t, rec.Body.String(), `<textarea name="body"></textarea>`)
 	}
 }
@@ -244,7 +243,6 @@ func Test_MyEntry(t *testing.T) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		// フォームが表示される
 		assert.Contains(t, rec.Body.String(), `<form method="POST" action="/my/blogs/`+blog.Path+`/entries/`+entry.ID.String()+`/edit">`)
-		assert.Contains(t, rec.Body.String(), `<input type="text" name="title" value="`+entry.Title+`">`)
 		assert.Contains(t, rec.Body.String(), `<textarea name="body">`+entry.Body+`</textarea>`)
 		assert.Contains(t, rec.Body.String(), `<form method="POST" action="/my/blogs/`+blog.Path+`/entries/`+entry.ID.String()+`/unpublish">`)
 	}

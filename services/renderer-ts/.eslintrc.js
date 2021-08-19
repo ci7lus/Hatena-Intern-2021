@@ -3,7 +3,7 @@
 module.exports = {
   overrides: [
     {
-      files: ["src/**/*.ts"],
+      files: ["src/**/*.{ts,tsx}"],
       extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -26,7 +26,7 @@ module.exports = {
         "node/no-missing-import": [
           "error",
           {
-            tryExtensions: [".js", ".ts"],
+            tryExtensions: [".js", ".ts", ".tsx"],
           },
         ],
       },

@@ -7,23 +7,28 @@
   "scripts": {
     "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "eslint src '*.js'",
-    "lint:prettier": "prettier --check --loglevel warn 'src/**/*.ts' '*.js'",
+    "lint:prettier": "prettier --check --loglevel warn 'src/**/*.{ts,tsx}' '*.js'",
     "lint-fix": "run-s lint-fix:eslint lint-fix:prettier",
     "lint-fix:eslint": "eslint --fix src '*.js'",
-    "lint-fix:prettier": "prettier --write --loglevel warn 'src/**/*.ts' '*.js'",
+    "lint-fix:prettier": "prettier --write --loglevel warn 'src/**/*.{ts,tsx}' '*.js'",
     "test": "jest",
     "build": "tsc --build tsconfig.build.json",
     "start": "node dist/index.js"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.3.7",
+    "@progfay/scrapbox-parser": "^7.1.0",
     "google-protobuf": "^3.17.3",
     "grpc-js-health-check": "^1.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/google-protobuf": "^3.15.4",
     "@types/jest": "^27.0.0",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "eslint": "^7.32.0",
@@ -36,6 +41,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.4",
+    "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
   }
 }
