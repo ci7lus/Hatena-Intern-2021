@@ -125,6 +125,13 @@ export const LineNodeRenderer: React.VFC<{ node: Node; _key: string | number }> 
           ))}
         </b>
       );
+    case "twitter":
+      return (
+        <blockquote className="twitter-tweet">
+          <p lang="ja" dir="ltr"></p>ツイート展開中…
+          <a href={`https://twitter.com/twitter/status/${node.id}`}></a>
+        </blockquote>
+      );
     default:
       return <p>not supported ({node?.type})</p>;
   }

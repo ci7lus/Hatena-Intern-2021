@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.3.7",
-    "@progfay/scrapbox-parser": "^7.1.0",
+    "@progfay/scrapbox-parser": "https://github.com/neneka/scrapbox-parser.git#chore/add-original-nota",
     "google-protobuf": "^3.17.3",
     "grpc-js-health-check": "^1.0.2",
     "react": "^17.0.2",
