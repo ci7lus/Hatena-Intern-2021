@@ -3,6 +3,7 @@ FROM node:14-alpine AS builder
 
 WORKDIR /services/renderer-ts
 COPY package.json yarn.lock ./
+RUN apk --update add git
 RUN --mount=type=cache,id=yarn,target=/usr/local/share/.cache/yarn/v6 \
   yarn install --frozen-lockfile
 COPY . .

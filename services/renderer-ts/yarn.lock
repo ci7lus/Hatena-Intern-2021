@@ -591,10 +591,9 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@progfay/scrapbox-parser@^7.1.0":
+"@progfay/scrapbox-parser@https://github.com/neneka/scrapbox-parser.git#chore/add-original-nota":
   version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@progfay/scrapbox-parser/-/scrapbox-parser-7.1.0.tgz#835a1e1939fd30ca500f5da03b1b2bf5ec407240"
-  integrity sha512-jZXEOGf9KZien4YAec9WG58Vy/6XA6ARac4NSGX2Msd1M3nSChnDgZL4ny0oNZvV1LDqPCdDYcTt5AfZEk+xmQ==
+  resolved "https://github.com/neneka/scrapbox-parser.git#2f59af42c92f225a73bbd2cae613ab295814c11a"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
