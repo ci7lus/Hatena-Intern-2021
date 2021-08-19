@@ -6,16 +6,16 @@ build:
   artifacts:
   - image: hatena-intern-2021-account
     context: services/account
-  - image: hatena-intern-2021-account-test
-    context: services/account
-    docker:
-      dockerfile: Dockerfile.test
+#  - image: hatena-intern-2021-account-test
+#    context: services/account
+#    docker:
+#      dockerfile: Dockerfile.test
   - image: hatena-intern-2021-blog
     context: services/blog
-  - image: hatena-intern-2021-blog-test
-    context: services/blog
-    docker:
-      dockerfile: Dockerfile.test
+#  - image: hatena-intern-2021-blog-test
+#    context: services/blog
+#    docker:
+#      dockerfile: Dockerfile.test
   - image: hatena-intern-2021-renderer-ts
     context: services/renderer-ts
   local:
