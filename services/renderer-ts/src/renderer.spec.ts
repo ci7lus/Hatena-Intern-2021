@@ -5,7 +5,7 @@ describe("render", () => {
     const src = "title\nhttps://google.com/ [google https://google.com/]";
     const html = await render(src);
     expect(html).toBe(
-      '<span>title</span><div style="padding-left:0rem"><a href="https://google.com/" target="_blank" rel="noopener">https://google.com/</a><span> </span><a href="https://google.com/" target="_blank" rel="noopener">google</a></div>'
+      '<div style="padding-left:0rem"><a href="https://google.com/" target="_blank" rel="noopener">https://google.com/</a><span> </span><a href="https://google.com/" target="_blank" rel="noopener">google</a></div>'
     );
   });
 });

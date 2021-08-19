@@ -8,7 +8,7 @@ describe("handleRender", () => {
     const ctx = new Map<string, unknown>();
     const reply = await handleRender(req, ctx);
     expect(reply.getHtml()).toBe(
-      '<span>title</span><div style="padding-left:0rem"><a href="https://google.com/" target="_blank" rel="noopener">https://google.com/</a><span> </span><a href="https://google.com/" target="_blank" rel="noopener">google</a></div>'
+      '<div style="padding-left:0rem"><a href="https://google.com/" target="_blank" rel="noopener">https://google.com/</a><span> </span><a href="https://google.com/" target="_blank" rel="noopener">google</a></div>'
     );
   });
 });
