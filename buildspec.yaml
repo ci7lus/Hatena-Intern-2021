@@ -1,0 +1,52 @@
+---
+version: 0.2
+env:
+  secrets-manager:
+    DOCKERHUB_USER: arn:aws:secretsmanager:ap-northeast-1:568128707075:secret:dockerhub-maTn0N:username
+    DOCKERHUB_PASS: arn:aws:secretsmanager:ap-northeast-1:568128707075:secret:dockerhub-maTn0N:password
+phases:
+  install:
+    commands:
+      # install kubectl
+      - curl -sS -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
+      - chmod +x ./kubectl
+      - export PATH=$PWD/:$PATH
+      # install awscli
+      - apt-get update && apt-get -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
+      # install skaffold
+      - wget -O /usr/local/bin/skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
+      - chmod +x /usr/local/bin/skaffold
+      # install kustomize
+      - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+      # install Docker 20.10.7
+      - export DOCKER_VERSION="20.10.7"
+      - DOCKER_BUCKET="download.docker.com"
+      - DOCKER_CHANNEL="stable"
+      - DOCKER_SHA256="34ad50146fce29b28e5115a1e8510dd5232459c9a4a9f28f65909f92cca314d9"
+      - curl -fSL "https://${DOCKER_BUCKET}/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" -o docker.tgz
+      - echo "${DOCKER_SHA256} *docker.tgz" | sha256sum -c -
+      - tar --extract --file docker.tgz --strip-components 1  --directory /usr/local/bin/
+      - rm docker.tgz
+  pre_build:
+      commands:
+        # DockerHub ログイン
+        - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
+        # Amazon ECR ログイン
+        - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 568128707075.dkr.ecr.ap-northeast-1.amazonaws.com
+        # AWS 認証情報取得
+        - CREDENTIALS=$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)
+        - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+        - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+        - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+        - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
+        - export KUBECONFIG=$HOME/.kube/config
+        # Amazon EKS 用の kubeconfig 設定
+        - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+
+  post_build:
+    commands:
+      # skaffold 実行
+      - skaffold run --cleanup=false --kube-context arn:aws:eks:ap-northeast-1:568128707075:cluster/eksworkshop-eksctl
+      - printf '[{"name":"artifact", "body":"success"}]' > build.json
+artifacts:
+  files: build.json
